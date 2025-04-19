@@ -1,0 +1,65 @@
+---
+title: "LFT"
+author: "Supun Soorath Nanayakkra"
+date: "2025-04-18"
+output: html_document
+---
+
+```{r}
+
+df <- read.csv('H:/2025 Year/Research/Lung Function Test/new3.csv')
+head(df)
+```
+```{r}
+
+# Create a contingency table between Gender and Type
+contingency_table <- table(df$BMI_Cat, df$Type)
+print(contingency_table)
+
+# Perform the Chi-Square test
+chi_square_test <- fisher.test(contingency_table)
+
+# View the result of the Chi-Square test
+chi_square_test 
+
+
+
+# Create a contingency table between Gender and Type
+contingency <- table(df$Gender, df$Type)
+print(contingency)
+
+# Perform the Chi-Square test
+chi_squar <- fisher.test(contingency)
+
+# View the result of the Chi-Square test
+chi_squar
+
+```
+
+
+```{r}
+
+# Example data
+# df is your data frame with variables 'Age' (numeric) and 'BMI_group' (factor with 2 levels)
+
+# Mann–Whitney U test
+wilcox.test(df$Age ~ df$Type, data = df)
+
+wilcox.test(df$Height ~ df$Type, data = df)
+
+wilcox_test <- wilcox.test(df$Weight ~ df$Type, data = df)
+
+
+# more then 2 levels categorical variable and the quantitative variable
+#kruskal.test(df$Type ~ df$Age, data = df)
+
+# Extract U (W) and group sizes
+U <- wilcox_test$statistic
+n1 <- sum(df$Type == "Obs")  
+n2 <- sum(df$Type == "N") 
+
+# Compute rᵣ
+r_r <- 1 - (2 * U) / (n1 * n2)
+print(r_r)  # Output: 1
+
+```
